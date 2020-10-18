@@ -1,0 +1,20 @@
+.product-preview {
+  margin-bottom: 30px;
+
+  .title {
+    font-size: 28px;
+    margin-bottom: 25px;
+  }
+
+  button {
+    margin-bottom: 20px;
+  }
+
+  a {
+    color: white;
+    
+    &:hover {
+      color: black;
+    }
+  }
+}

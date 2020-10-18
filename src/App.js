@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from 'react'
+
+import { Route, Switch, Redirect } from 'react-router-dom'
+
+import { ToastContainer } from 'react-toastify'
+import { HomePage } from './pages/homepage'
+import { ShopPage } from './pages/shoppage'
+import { Header } from './components/header'
+import { AddProduct } from './components/add-product'
+import { SignInPage } from './pages/sign-in-page'
+import { useSelector } from 'react-redux'
+import PrivateRoute from './utils/PrivateRoute';
+
+import 'react-toastify/dist/ReactToastify.css'
 import './App.css';
 
 function App() {
+  const currentUser = useSelector(state => state.user.currentUser)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+       <ToastContainer />
+      <Header />
+      <Switch>
+        <PrivateRoute exact path='/' component={HomePage} />
+        <PrivateRoute path='/shop' component={ShopPage} />
+        <PrivateRoute path='/add-product' component={AddProduct} />
+        <Route exact path='/sign-in' render={() => currentUser ? <Redirect to='/' /> : <SignInPage />} />
+      </Switch>
     </div>
   );
 }
